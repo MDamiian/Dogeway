@@ -20,17 +20,4 @@ import java.net.URI;
 @RestController
 @RequestMapping("/usuario")
 public class ControllerUsuario {
-    @Autowired
-    UsuarioRepository usuarioRepository;
-
-    @PostMapping
-    public ResponseEntity<RespuestaUsuario> registrarUsuario(@RequestBody @Valid RegistroUsuario registroUsuario,
-                                                             UriComponentsBuilder uriComponentsBuilder) {
-        Usuario usuario = usuarioRepository.save(new Usuario(registroUsuario));
-
-        RespuestaUsuario respuestaUsuario = new RespuestaUsuario(usuario.getId(), usuario.getNombres(), usuario.getApellidos());
-        URI url = uriComponentsBuilder.path("/usuario/{id}").buildAndExpand(usuario.getId()).toUri();
-
-        return ResponseEntity.created(url).body(respuestaUsuario);
-    }
 }
