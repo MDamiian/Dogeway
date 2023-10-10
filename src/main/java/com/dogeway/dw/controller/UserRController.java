@@ -1,6 +1,7 @@
 package com.dogeway.dw.controller;
 
-import com.dogeway.dw.usuario.RespuestaUsuario;
+import com.dogeway.dw.usuario.RegisterDTO;
+import com.dogeway.dw.usuario.UserResponseDTO;
 import com.dogeway.dw.usuario.Usuario;
 import com.dogeway.dw.usuario.UsuarioRepository;
 import jakarta.validation.Valid;
@@ -22,11 +23,11 @@ public class RegistroUsuario {
     UsuarioRepository usuarioRepository;
 
     @PostMapping
-    public ResponseEntity<RespuestaUsuario> registrarUsuario(@RequestBody @Valid com.dogeway.dw.usuario.RegistroUsuario registroUsuario,
-                                                             UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<UserResponseDTO> registrarUsuario(@RequestBody @Valid RegisterDTO registroUsuario,
+                                                            UriComponentsBuilder uriComponentsBuilder) {
         Usuario usuario = usuarioRepository.save(new Usuario(registroUsuario));
 
-        RespuestaUsuario respuestaUsuario = new RespuestaUsuario(usuario.getId(), usuario.getNombres(), usuario.getApellidos());
+        UserResponseDTO respuestaUsuario = new UserResponseDTO(usuario.getId(), usuario.getNombres(), usuario.getApellidos());
         URI url = uriComponentsBuilder.path("/signup/{id}").buildAndExpand(usuario.getId()).toUri();
 
         return ResponseEntity.created(url).body(respuestaUsuario);

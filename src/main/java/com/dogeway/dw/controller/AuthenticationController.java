@@ -2,7 +2,7 @@ package com.dogeway.dw.controller;
 
 import com.dogeway.dw.security.DatosJWTToken;
 import com.dogeway.dw.security.TokenService;
-import com.dogeway.dw.usuario.Login;
+import com.dogeway.dw.usuario.LoginDTO;
 import com.dogeway.dw.usuario.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/login")
-public class AutenticacionUsuario {
+public class AuthenticatioController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -25,7 +25,7 @@ public class AutenticacionUsuario {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity autenticarUsuario(@RequestBody @Valid Login login) {
+    public ResponseEntity autenticarUsuario(@RequestBody @Valid LoginDTO login) {
         Authentication authToken = new UsernamePasswordAuthenticationToken(login.correo(),
                 login.password());
         var usuarioAutenticado = authenticationManager.authenticate(authToken);
