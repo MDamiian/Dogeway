@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class match {
+public class match{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_match;
