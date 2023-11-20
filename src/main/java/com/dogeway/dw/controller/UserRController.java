@@ -1,6 +1,7 @@
 package com.dogeway.dw.controller;
 
 //import com.dogeway.dw.service.EmailAunthentication;
+
 import com.dogeway.dw.usuario.RegisterDTO;
 import com.dogeway.dw.usuario.UserResponseDTO;
 import com.dogeway.dw.usuario.Usuario;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
 
 @RestController
@@ -40,7 +42,10 @@ public class UserRController {
 
             Usuario usuario = usuarioRepository.save(new Usuario(registroUsuario, passwordEncoded));
 
-            UserResponseDTO respuestaUsuario = new UserResponseDTO(usuario.getId(), usuario.getNombres(), usuario.getApellidos());
+            UserResponseDTO respuestaUsuario = new UserResponseDTO(usuario.getId(), usuario.getNombres(),
+                    usuario.getApellidos(), usuario.getEstado(), usuario.getCiudad(), usuario.getGenero(),
+                    usuario.getFecha_nacimiento());
+
             URI url = uriComponentsBuilder.path("/signup/{id}").buildAndExpand(usuario.getId()).toUri();
 
             return ResponseEntity.created(url).body(respuestaUsuario);
