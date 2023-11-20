@@ -1,6 +1,7 @@
 package com.dogeway.dw.mascota;
 
 import com.dogeway.dw.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Mascota {
     private String foto;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
+    @JsonBackReference
     private Usuario propietario;
 
     public Mascota(RegisterPetDTO registerPetDTO, Usuario usuario){
