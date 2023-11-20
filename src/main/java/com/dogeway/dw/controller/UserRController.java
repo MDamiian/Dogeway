@@ -1,5 +1,6 @@
 package com.dogeway.dw.controller;
 
+//import com.dogeway.dw.service.EmailAunthentication;
 import com.dogeway.dw.usuario.RegisterDTO;
 import com.dogeway.dw.usuario.UserResponseDTO;
 import com.dogeway.dw.usuario.Usuario;
@@ -25,6 +26,8 @@ public class UserRController {
     UsuarioRepository usuarioRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
+//    EmailAunthentication emailAunthentication;
+
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> registrarUsuario(
@@ -33,6 +36,7 @@ public class UserRController {
 
         try {
             String passwordEncoded = passwordEncoder.encode(registroUsuario.password());
+//            emailAunthentication.emailAuthentication(registroUsuario.correo());
 
             Usuario usuario = usuarioRepository.save(new Usuario(registroUsuario, passwordEncoded));
 

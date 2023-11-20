@@ -22,6 +22,7 @@ public class Mascota {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMascota;
     private String nombre;
+    @Enumerated(EnumType.STRING)
     private Raza raza;
     private float peso;
     @Enumerated(EnumType.STRING)
