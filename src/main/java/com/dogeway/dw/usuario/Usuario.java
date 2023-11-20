@@ -1,6 +1,7 @@
 package com.dogeway.dw.usuario;
 
 import com.dogeway.dw.mascota.Mascota;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +37,7 @@ public class Usuario implements UserDetails {
     private String ciudad;
     private String telefono;
     private String foto;
+    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
