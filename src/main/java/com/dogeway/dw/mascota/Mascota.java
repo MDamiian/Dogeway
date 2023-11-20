@@ -1,15 +1,12 @@
 package com.dogeway.dw.mascota;
 
 import com.dogeway.dw.usuario.Usuario;
-import com.dogeway.dw.usuario.UsuarioRepository;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Blob;
-import java.util.Optional;
 
 @Table(name = "mascotas")
 @Entity(name = "Mascota")
@@ -23,7 +20,7 @@ public class Mascota {
     private Long idMascota;
     private String nombre;
     @Enumerated(EnumType.STRING)
-    private Raza raza;
+    private Animal animal;
     private float peso;
     @Enumerated(EnumType.STRING)
     private Tamano tamano;
@@ -37,7 +34,7 @@ public class Mascota {
 
     public Mascota(RegisterPetDTO registerPetDTO, Usuario usuario){
         this.nombre = registerPetDTO.nombre();
-        this.raza = registerPetDTO.raza();
+        this.animal = registerPetDTO.animal();
         this.peso = registerPetDTO.peso();
         this.tamano = registerPetDTO.tamano();
         this.descripcion = registerPetDTO.descripcion();

@@ -8,8 +8,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 public class EmailAunthentication implements MailSender {
     JavaMailSender javaMailSender = null;
 
-
-
     public void emailAuthentication(String email){
         SimpleMailMessage simpleMailMessage =  new SimpleMailMessage();
         simpleMailMessage.setTo(email);

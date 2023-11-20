@@ -35,7 +35,7 @@ public class PetController {
                         mascota -> new PetResponseDTO
                                 (
                                         mascota.getIdMascota(), mascota.getNombre(),
-                                        mascota.getRaza(), mascota.getPeso(), mascota.getTamano(),
+                                        mascota.getAnimal(), mascota.getPeso(), mascota.getTamano(),
                                         mascota.getDescripcion(), mascota.getPersonalidad(),
                                         mascota.getFoto(), new UserResponseDTO(mascota.getPropietario())
                                 )
@@ -47,15 +47,15 @@ public class PetController {
     }
 
     @GetMapping("/explore-byanimal")
-    public ResponseEntity<Page<PetResponseDTO>> mascotaToListByAnimal(@PageableDefault(size = 1) Pageable paginacion, @RequestParam Raza raza) {
-        Page<Mascota> paginaMascotas = mascotaRepository.findByRaza(raza, paginacion);
+    public ResponseEntity<Page<PetResponseDTO>> mascotaToListByAnimal(@PageableDefault(size = 1) Pageable paginacion, @RequestParam Animal animal) {
+        Page<Mascota> paginaMascotas = mascotaRepository.findByAnimal(animal, paginacion);
 
         List<PetResponseDTO> listaMascotasDTO = paginaMascotas.map
                 (
                         mascota -> new PetResponseDTO
                                 (
                                         mascota.getIdMascota(), mascota.getNombre(),
-                                        mascota.getRaza(), mascota.getPeso(), mascota.getTamano(),
+                                        mascota.getAnimal(), mascota.getPeso(), mascota.getTamano(),
                                         mascota.getDescripcion(), mascota.getPersonalidad(),
                                         mascota.getFoto(), new UserResponseDTO(mascota.getPropietario())
                                 )
@@ -74,7 +74,7 @@ public class PetController {
         PetResponseDTO petResponseDTO = new PetResponseDTO
                 (
                         mascota.getIdMascota(), mascota.getNombre(),
-                        mascota.getRaza(), mascota.getPeso(), mascota.getTamano(),
+                        mascota.getAnimal(), mascota.getPeso(), mascota.getTamano(),
                         mascota.getDescripcion(), mascota.getPersonalidad(),
                         mascota.getFoto(), new UserResponseDTO(mascota.getPropietario())
                 );
