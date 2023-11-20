@@ -44,7 +44,7 @@ public class UserRController {
 
             UserResponseDTO respuestaUsuario = new UserResponseDTO(usuario.getId(), usuario.getNombres(),
                     usuario.getApellidos(), usuario.getEstado(), usuario.getCiudad(), usuario.getGenero(),
-                    usuario.getFecha_nacimiento());
+                    usuario.getFecha_nacimiento(), usuario.getFoto());
 
             URI url = uriComponentsBuilder.path("/signup/{id}").buildAndExpand(usuario.getId()).toUri();
 
