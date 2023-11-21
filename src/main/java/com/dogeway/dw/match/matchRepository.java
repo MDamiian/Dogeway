@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface matchRepository extends JpaRepository<match,Long> {
 
-    Status findStatusById_petAndId_pet_match(Long id_pet, Long id_pet_match);
+    match findmatchById_petAndId_pet_match(Long id_pet, Long id_pet_match);
+
 
 }

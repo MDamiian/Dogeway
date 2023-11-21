@@ -22,12 +22,15 @@ public class matchController {
     public match NewMatch(@RequestBody match Match) {return MatchRepository.save(Match);}
 
 
-    @GetMapping("/status")
-    public ResponseEntity<Status> verifyStatus(@RequestParam Long id_pet, @RequestParam Long id_pet_match) {
-        Status status = MatchRepository.findStatusById_petAndId_pet_match(id_pet, id_pet_match);
+    @PostMapping("/update_status")
+        public ResponseEntity<match> UpdateStatus(@RequestParam Long id_pet, @RequestParam Long id_pet_match,@RequestParam Status newStatus){
 
-        if (status != null) {
-            return ResponseEntity.ok(status);
+        match matchToUpdate = MatchRepository.findmatchById_petAndId_pet_match(id_pet, id_pet_match);
+
+        if (matchToUpdate != null) {
+            matchToUpdate.setStatus(newStatus);
+            MatchRepository.save(matchToUpdate);
+            return ResponseEntity.ok(matchToUpdate);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -35,4 +38,29 @@ public class matchController {
 
 
 
-}
+    @GetMapping("/status")
+    public ResponseEntity<match> verifyStatus(@RequestParam Long id_pet, @RequestParam Long id_pet_match) {
+
+            match Match = MatchRepository.findmatchById_petAndId_pet_match(id_pet, id_pet_match);
+
+                if (Match != null) {
+                    return ResponseEntity.ok(Match);
+
+                } else {
+                    Match = MatchRepository.findmatchById_petAndId_pet_match(id_pet_match,id_pet);
+
+                    if(Match!=null){
+                        return ResponseEntity.ok(Match);
+
+                    }else{
+                        return ResponseEntity.notFound().build();
+                    }
+
+                }
+            }
+
+    }
+
+
+
+
