@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pet")
@@ -65,6 +66,22 @@ public class PetController {
 
         return ResponseEntity.ok(paginaMascotasDTO);
     }
+
+    @GetMapping("/listallpets")
+    public ResponseEntity<List<PetResponseDTO>> listAllPets(@RequestParam String correo) {
+
+        List<Mascota> mascotas = mascotaRepository.findAllByPropietarioCorreo(correo);
+
+        List<PetResponseDTO> petResponseDTOs = mascotas.stream()
+                .map(mascota -> new PetResponseDTO(mascota.getIdMascota(), mascota.getNombre(),
+                        mascota.getAnimal(), mascota.getTamano(),
+                        mascota.getDescripcion(), mascota.getPersonalidad(),
+                        mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(petResponseDTOs);
+    }
+
 
     @PostMapping("/create")
     public ResponseEntity<PetResponseDTO> registrarMascota(@RequestBody @Valid RegisterPetDTO registroMascota, UriComponentsBuilder uriComponentsBuilder) {
