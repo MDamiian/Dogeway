@@ -18,6 +18,7 @@ public record RegisterPetDTO(
         Personalidad personalidad,
         @NotBlank
         String foto,
+        boolean genero,
         @NotNull
         Long id
 ) {

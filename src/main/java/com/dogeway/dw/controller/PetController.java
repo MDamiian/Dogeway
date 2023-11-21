@@ -47,8 +47,9 @@ public class PetController {
     }
 
     @GetMapping("/explore-byanimal")
-    public ResponseEntity<Page<PetResponseDTO>> mascotaToListByAnimal(@PageableDefault(size = 1) Pageable paginacion, @RequestParam Animal animal) {
-        Page<Mascota> paginaMascotas = mascotaRepository.findByAnimal(animal, paginacion);
+    public ResponseEntity<Page<PetResponseDTO>> mascotaToListByAnimal(@PageableDefault(size = 1) Pageable paginacion,
+                                                                      @RequestParam Animal animal, @RequestParam Tamano tamano, @RequestParam boolean genero) {
+        Page<Mascota> paginaMascotas = mascotaRepository.findByAnimalAndTamanoAndGenero(animal, tamano, genero, paginacion);
 
         List<PetResponseDTO> listaMascotasDTO = paginaMascotas.map
                 (

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MacotaRepository extends JpaRepository<Mascota, Long> {
 
-    Page<Mascota> findByAnimal(Animal animal, Pageable paginacion);
+    Page<Mascota> findByAnimalAndTamanoAndGenero(Animal animal, Tamano tamano, boolean genero, Pageable paginacion);
 }

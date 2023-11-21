@@ -29,6 +29,7 @@ public class Mascota {
     @Enumerated(EnumType.STRING)
     private Personalidad personalidad;
     private String foto;
+    private boolean genero;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     @JsonBackReference
@@ -42,6 +43,7 @@ public class Mascota {
         this.descripcion = registerPetDTO.descripcion();
         this.personalidad = registerPetDTO.personalidad();
         this.foto = registerPetDTO.foto();
+        this.genero = registerPetDTO.genero();
         this.propietario = usuario;
     }
 }
