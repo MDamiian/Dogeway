@@ -18,9 +18,10 @@ public class match{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_match;
 
-    private Long id_user;
-    private Long id_user_match;
-    private boolean status_user;
-    private boolean status_user_match;
+    private Long id_pet;
+    private Long id_pet_match;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }

@@ -1,5 +1,6 @@
 package com.dogeway.dw.match;
 
+import com.dogeway.dw.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,25 +22,17 @@ public class matchController {
     public match NewMatch(@RequestBody match Match) {return MatchRepository.save(Match);}
 
 
-    //Retorna un usuario en la tabla de match
-    @GetMapping("/{id}")
-    public ResponseEntity<match> getMatchById(@PathVariable Long id) {
-        Optional<match> matchOptional = MatchRepository.findById(id);
+    @GetMapping("/status")
+    public ResponseEntity<Status> verifyStatus(@RequestParam Long id_pet, @RequestParam Long id_pet_match) {
+        Status status = MatchRepository.findStatusById_petAndId_pet_match(id_pet, id_pet_match);
 
-        return matchOptional.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (status != null) {
+            return ResponseEntity.ok(status);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-
-    //Verifica si el status de ambos usuarios es true y significa que ya hicieron match
-    @GetMapping("/checkMatch")
-    public boolean checkMatch(@RequestParam Long id_user, @RequestParam Long id_user_match) {
-        // Buscar el match por IDs de usuario
-        Optional<match> optionalMatch = MatchRepository.findMatchByUserIds(id_user, id_user_match);
-
-        // Verificar si se encontró el match y cumplen las condiciones
-        return optionalMatch.map(match -> match.isStatus_user() && match.isStatus_user_match()).orElse(false);
-    }
 
 
 }
