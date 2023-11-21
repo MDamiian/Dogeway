@@ -22,7 +22,6 @@ public class Mascota {
     private String nombre;
     @Enumerated(EnumType.STRING)
     private Animal animal;
-    private float peso;
     @Enumerated(EnumType.STRING)
     private Tamano tamano;
     private String descripcion;
@@ -38,7 +37,6 @@ public class Mascota {
     public Mascota(RegisterPetDTO registerPetDTO, Usuario usuario){
         this.nombre = registerPetDTO.nombre();
         this.animal = registerPetDTO.animal();
-        this.peso = registerPetDTO.peso();
         this.tamano = registerPetDTO.tamano();
         this.descripcion = registerPetDTO.descripcion();
         this.personalidad = registerPetDTO.personalidad();

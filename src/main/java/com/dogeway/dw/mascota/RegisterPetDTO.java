@@ -9,8 +9,6 @@ public record RegisterPetDTO(
         @NotNull
         Animal animal,
         @NotNull
-        float peso,
-        @NotNull
         Tamano tamano,
         @NotBlank
         String descripcion,
@@ -18,6 +16,7 @@ public record RegisterPetDTO(
         Personalidad personalidad,
         @NotBlank
         String foto,
+        @NotNull
         boolean genero,
         @NotNull
         Long id

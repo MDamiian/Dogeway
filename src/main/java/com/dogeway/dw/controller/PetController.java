@@ -35,9 +35,9 @@ public class PetController {
                         mascota -> new PetResponseDTO
                                 (
                                         mascota.getIdMascota(), mascota.getNombre(),
-                                        mascota.getAnimal(), mascota.getPeso(), mascota.getTamano(),
+                                        mascota.getAnimal(), mascota.getTamano(),
                                         mascota.getDescripcion(), mascota.getPersonalidad(),
-                                        mascota.getFoto(), new UserResponseDTO(mascota.getPropietario())
+                                        mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
                                 )
                 ).getContent();
 
@@ -56,9 +56,9 @@ public class PetController {
                         mascota -> new PetResponseDTO
                                 (
                                         mascota.getIdMascota(), mascota.getNombre(),
-                                        mascota.getAnimal(), mascota.getPeso(), mascota.getTamano(),
+                                        mascota.getAnimal(), mascota.getTamano(),
                                         mascota.getDescripcion(), mascota.getPersonalidad(),
-                                        mascota.getFoto(), new UserResponseDTO(mascota.getPropietario())
+                                        mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
                                 )
                 ).getContent();
         Page<PetResponseDTO> paginaMascotasDTO = new PageImpl<>(listaMascotasDTO, paginacion, paginaMascotas.getTotalElements());
@@ -75,9 +75,9 @@ public class PetController {
         PetResponseDTO petResponseDTO = new PetResponseDTO
                 (
                         mascota.getIdMascota(), mascota.getNombre(),
-                        mascota.getAnimal(), mascota.getPeso(), mascota.getTamano(),
+                        mascota.getAnimal(), mascota.getTamano(),
                         mascota.getDescripcion(), mascota.getPersonalidad(),
-                        mascota.getFoto(), new UserResponseDTO(mascota.getPropietario())
+                        mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
                 );
 
         URI url = uriComponentsBuilder.path("/create/{id}").buildAndExpand(mascota.getIdMascota()).toUri();

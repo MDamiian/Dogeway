@@ -5,11 +5,11 @@ public record PetResponseDTO(
         Long id,
         String nombre,
         Animal animal,
-        float peso,
         Tamano tamano,
         String descripcion,
         Personalidad personalidad,
         String foto,
+        boolean genero,
         UserResponseDTO userResponseDTO
 ) {
 }
