@@ -24,4 +24,14 @@ public class match{
     @Enumerated(EnumType.STRING)
     private Status status;
 
+
+
+    public match(Long idpet, Long idpetmatch, Status status) {
+        this.idpet = idpet;
+        this.idpetmatch = idpetmatch;
+        this.status = status;
+    }
+
 }
+
+

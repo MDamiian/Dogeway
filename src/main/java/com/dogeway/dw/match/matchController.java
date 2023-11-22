@@ -52,7 +52,8 @@ public class matchController {
                         return ResponseEntity.ok(Match);
 
                     }else{
-                        return ResponseEntity.notFound().build();
+                        match NotFound=new match(-1L,-1L,Status.PENDIENTE);
+                        return ResponseEntity.ok(NotFound);
                     }
 
                 }
