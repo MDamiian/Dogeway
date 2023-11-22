@@ -16,10 +16,10 @@ import lombok.Setter;
 public class match{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long IdMatch;
+    private Long idmatch;
 
-    private Long IdPet;
-    private Long IdPetMatch;
+    private Long idpet;
+    private Long idpetmatch;
 
     @Enumerated(EnumType.STRING)
     private Status status;

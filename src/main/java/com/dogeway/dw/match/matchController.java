@@ -24,7 +24,7 @@ public class matchController {
     @PostMapping("/aceptar")
         public ResponseEntity<match> UpdateStatus(@RequestParam Long id_pet, @RequestParam Long id_pet_match,@RequestParam Status newStatus){
 
-        match matchToUpdate = MatchRepository.findByIdPetAndIdPetMatch(id_pet, id_pet_match);
+        match matchToUpdate = MatchRepository.findByIdpetAndIdpetmatch(id_pet, id_pet_match);
 
         if (matchToUpdate != null) {
             matchToUpdate.setStatus(newStatus);
@@ -41,12 +41,12 @@ public class matchController {
     @GetMapping("/status")
     public ResponseEntity<match> verifyStatus(@RequestParam Long id_pet, @RequestParam Long id_pet_match) {
 
-            match Match = MatchRepository.findByIdPetAndIdPetMatch(id_pet, id_pet_match);
+            match Match = MatchRepository.findByIdpetAndIdpetmatch(id_pet, id_pet_match);
 
                 if (Match != null) {
                     return ResponseEntity.ok(Match);
                 } else {
-                    Match = MatchRepository.findByIdPetAndIdPetMatch(id_pet_match,id_pet);
+                    Match = MatchRepository.findByIdpetAndIdpetmatch(id_pet_match,id_pet);
 
                     if(Match!=null){
                         return ResponseEntity.ok(Match);
