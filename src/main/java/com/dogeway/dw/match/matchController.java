@@ -1,12 +1,11 @@
 package com.dogeway.dw.match;
 
-import com.dogeway.dw.usuario.Usuario;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -22,10 +21,10 @@ public class matchController {
     public match NewMatch(@RequestBody match Match) {return MatchRepository.save(Match);}
 
 
-    @PostMapping("/update_status")
+    @PostMapping("/aceptar")
         public ResponseEntity<match> UpdateStatus(@RequestParam Long id_pet, @RequestParam Long id_pet_match,@RequestParam Status newStatus){
 
-        match matchToUpdate = MatchRepository.findmatchById_petAndId_pet_match(id_pet, id_pet_match);
+        match matchToUpdate = MatchRepository.findByIdPetAndIdPetMatch(id_pet, id_pet_match);
 
         if (matchToUpdate != null) {
             matchToUpdate.setStatus(newStatus);
@@ -38,16 +37,16 @@ public class matchController {
 
 
 
+
     @GetMapping("/status")
     public ResponseEntity<match> verifyStatus(@RequestParam Long id_pet, @RequestParam Long id_pet_match) {
 
-            match Match = MatchRepository.findmatchById_petAndId_pet_match(id_pet, id_pet_match);
+            match Match = MatchRepository.findByIdPetAndIdPetMatch(id_pet, id_pet_match);
 
                 if (Match != null) {
                     return ResponseEntity.ok(Match);
-
                 } else {
-                    Match = MatchRepository.findmatchById_petAndId_pet_match(id_pet_match,id_pet);
+                    Match = MatchRepository.findByIdPetAndIdPetMatch(id_pet_match,id_pet);
 
                     if(Match!=null){
                         return ResponseEntity.ok(Match);
