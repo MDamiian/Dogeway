@@ -39,6 +39,7 @@ public class Mascota {
     public Mascota(RegisterPetDTO registerPetDTO, Usuario usuario){
         this.nombre = registerPetDTO.nombre();
         this.animal = registerPetDTO.animal();
+        this.utilidadDeMascota = registerPetDTO.utilidadDeMascota();
         this.tamano = registerPetDTO.tamano();
         this.descripcion = registerPetDTO.descripcion();
         this.personalidad = registerPetDTO.personalidad();
