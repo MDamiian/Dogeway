@@ -11,5 +11,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Usuario getReferenceByCorreo(String correo);
 
-    UserResponseDTO findUsuarioByCorreo(String correo);
 }

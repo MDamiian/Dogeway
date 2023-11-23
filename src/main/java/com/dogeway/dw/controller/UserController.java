@@ -37,10 +37,10 @@ public class UserController {
     }
 
     @GetMapping("/user-information")
-    public ResponseEntity<UserResponseDTO> loadUserByUsername(@RequestParam String correo) {
-        UserResponseDTO userResponseDTO = usuarioRepository.findUsuarioByCorreo(correo);
-        if (userResponseDTO != null) {
-            return ResponseEntity.ok(userResponseDTO);
+    public ResponseEntity<UserDetails> loadUserByUsername(@RequestParam String correo) {
+        UserDetails userDetails = usuarioRepository.findByCorreo(correo);
+        if (userDetails != null) {
+            return ResponseEntity.ok(userDetails);
         } else {
             // Manejo de caso en el que el usuario no se encuentra
             return ResponseEntity.notFound().build();
@@ -63,8 +63,5 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-
-
-
-
+    
 }
