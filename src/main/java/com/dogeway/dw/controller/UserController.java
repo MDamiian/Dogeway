@@ -36,11 +36,11 @@ public class UserController {
         return ResponseEntity.ok(usuarioRepository.findAll(paginacion).map(UserResponseDTO::new));
     }
 
-    @GetMapping("/user-information")
-    public ResponseEntity<UserDetails> loadUserByUsername(@RequestParam String correo) {
-        UserDetails userDetails = usuarioRepository.findByCorreo(correo);
-        if (userDetails != null) {
-            return ResponseEntity.ok(userDetails);
+    @GetMapping("/user")
+    public ResponseEntity<Usuario> loadUserByUsername(@RequestParam String correo) {
+        Usuario usuario = usuarioRepository.findUsuarioByCorreo(correo);
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario);
         } else {
             // Manejo de caso en el que el usuario no se encuentra
             return ResponseEntity.notFound().build();
@@ -63,5 +63,5 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-    
+
 }
