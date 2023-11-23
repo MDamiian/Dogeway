@@ -9,8 +9,5 @@ import java.util.List;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     UserDetails findByCorreo(String correo);
 
-    Usuario getUsuarioByCorreo(String correo);
-
-
 
 }

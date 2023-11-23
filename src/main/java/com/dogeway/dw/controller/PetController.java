@@ -102,5 +102,4 @@ public class PetController {
         return ResponseEntity.created(url).body(petResponseDTO);
     }
 
-
 }
