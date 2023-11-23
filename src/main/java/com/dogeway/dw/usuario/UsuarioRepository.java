@@ -10,4 +10,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     UserDetails findByCorreo(String correo);
 
     Usuario getReferenceByCorreo(String correo);
+
+    UserResponseDTO findUsuarioByCorreo(String correo);
 }
