@@ -36,7 +36,7 @@ public class PetController {
                         mascota -> new PetResponseDTO
                                 (
                                         mascota.getIdMascota(), mascota.getNombre(),
-                                        mascota.getAnimal(), mascota.getTamano(),
+                                        mascota.getAnimal(), mascota.getUtilidadDeMascota(), mascota.getTamano(),
                                         mascota.getDescripcion(), mascota.getPersonalidad(),
                                         mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
                                 )
@@ -49,15 +49,15 @@ public class PetController {
 
     @GetMapping("/explore-byanimal")
     public ResponseEntity<Page<PetResponseDTO>> mascotaToListByAnimal(@PageableDefault(size = 1) Pageable paginacion,
-                                                                      @RequestParam Animal animal, @RequestParam Tamano tamano, @RequestParam boolean genero) {
-        Page<Mascota> paginaMascotas = mascotaRepository.findByAnimalAndTamanoAndGenero(animal, tamano, genero, paginacion);
+                                                                      @RequestParam Animal animal, @RequestParam Tamano tamano, @RequestParam boolean genero, @RequestParam UtilidadDeMascota utilidadDeMascota) {
+        Page<Mascota> paginaMascotas = mascotaRepository.findByAnimalAndTamanoAndGeneroAndUtilidadDeMascota(animal, tamano, genero, paginacion, utilidadDeMascota);
 
         List<PetResponseDTO> listaMascotasDTO = paginaMascotas.map
                 (
                         mascota -> new PetResponseDTO
                                 (
                                         mascota.getIdMascota(), mascota.getNombre(),
-                                        mascota.getAnimal(), mascota.getTamano(),
+                                        mascota.getAnimal(), mascota.getUtilidadDeMascota(), mascota.getTamano(),
                                         mascota.getDescripcion(), mascota.getPersonalidad(),
                                         mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
                                 )
@@ -74,7 +74,7 @@ public class PetController {
 
         List<PetResponseDTO> petResponseDTOs = mascotas.stream()
                 .map(mascota -> new PetResponseDTO(mascota.getIdMascota(), mascota.getNombre(),
-                        mascota.getAnimal(), mascota.getTamano(),
+                        mascota.getAnimal(), mascota.getUtilidadDeMascota(), mascota.getTamano(),
                         mascota.getDescripcion(), mascota.getPersonalidad(),
                         mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())))
                 .collect(Collectors.toList());
@@ -92,7 +92,7 @@ public class PetController {
         PetResponseDTO petResponseDTO = new PetResponseDTO
                 (
                         mascota.getIdMascota(), mascota.getNombre(),
-                        mascota.getAnimal(), mascota.getTamano(),
+                        mascota.getAnimal(), mascota.getUtilidadDeMascota(), mascota.getTamano(),
                         mascota.getDescripcion(), mascota.getPersonalidad(),
                         mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
                 );

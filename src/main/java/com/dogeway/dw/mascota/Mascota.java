@@ -23,6 +23,8 @@ public class Mascota {
     @Enumerated(EnumType.STRING)
     private Animal animal;
     @Enumerated(EnumType.STRING)
+    private UtilidadDeMascota utilidadDeMascota;
+    @Enumerated(EnumType.STRING)
     private Tamano tamano;
     private String descripcion;
     @Enumerated(EnumType.STRING)

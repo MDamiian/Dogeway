@@ -5,6 +5,7 @@ public record PetResponseDTO(
         Long id,
         String nombre,
         Animal animal,
+        UtilidadDeMascota utilidadDeMascota,
         Tamano tamano,
         String descripcion,
         Personalidad personalidad,

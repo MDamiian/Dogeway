@@ -9,6 +9,8 @@ public record RegisterPetDTO(
         @NotNull
         Animal animal,
         @NotNull
+        UtilidadDeMascota utilidadDeMascota,
+        @NotNull
         Tamano tamano,
         @NotBlank
         String descripcion,

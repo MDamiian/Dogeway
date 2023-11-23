@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MacotaRepository extends JpaRepository<Mascota, Long> {
 
-    Page<Mascota> findByAnimalAndTamanoAndGenero(Animal animal, Tamano tamano, boolean genero, Pageable paginacion);
+    Page<Mascota> findByAnimalAndTamanoAndGeneroAndUtilidadDeMascota(Animal animal, Tamano tamano, boolean genero, Pageable paginacion, UtilidadDeMascota utilidadDeMascota);
     List<Mascota> findAllByPropietarioCorreo(String correo);
 }
