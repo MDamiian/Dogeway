@@ -92,4 +92,19 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void actualizarDatos(RegisterDTO registroUsuario, String passwordEncoded) {
+        this.nombres = registroUsuario.nombres();
+        this.apellidos = registroUsuario.apellidos();
+        this.correo = registroUsuario.correo();
+        this.intereses = registroUsuario.intereses();
+        this.genero = registroUsuario.genero();
+        this.fecha_nacimiento = registroUsuario.fechaNacimiento();
+        this.pais = registroUsuario.pais();
+        this.estado = registroUsuario.estado();
+        this.ciudad = registroUsuario.estado();
+        this.telefono = registroUsuario.telefono();
+        this.foto = registroUsuario.foto();
+        this.password = passwordEncoded;
+    }
 }

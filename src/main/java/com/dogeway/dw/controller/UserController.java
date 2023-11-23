@@ -5,15 +5,18 @@ import com.dogeway.dw.usuario.UserResponseDTO;
 import com.dogeway.dw.usuario.Usuario;
 import com.dogeway.dw.usuario.UsuarioRepository;
 import jakarta.validation.Valid;
+import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.SQLUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -44,12 +47,20 @@ public class UserController {
         }
     }
 
-    @PostMapping ("/update")
-    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody @Valid RegisterDTO registerDTO){
+    @PutMapping("/update")
+    @Transactional
+    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody @Valid RegisterDTO registerDTO) {
         String passwordEncoded = passwordEncoder.encode(registerDTO.password());
 
-        Usuario usuario = usuarioRepository.save(new Usuario(registerDTO, passwordEncoded));
+        if (passwordEncoded != null) {
+            Usuario usuario = usuarioRepository.getReferenceByCorreo(registerDTO.correo());
 
-        return ResponseEntity.ok().build();
+            if (usuario != null) {
+                usuario.actualizarDatos(registerDTO, passwordEncoded);
+                return ResponseEntity.ok().build();
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }

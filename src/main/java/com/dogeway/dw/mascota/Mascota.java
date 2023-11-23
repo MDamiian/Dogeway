@@ -47,4 +47,15 @@ public class Mascota {
         this.genero = registerPetDTO.genero();
         this.propietario = usuario;
     }
+
+    public void actualizarDatos(RegisterPetDTO registerPetDTO) {
+        this.nombre = registerPetDTO.nombre();
+        this.animal = registerPetDTO.animal();
+        this.utilidadDeMascota = registerPetDTO.utilidadDeMascota();
+        this.tamano = registerPetDTO.tamano();
+        this.descripcion = registerPetDTO.descripcion();
+        this.personalidad = registerPetDTO.personalidad();
+        this.foto = registerPetDTO.foto();
+        this.genero = registerPetDTO.genero();
+    }
 }

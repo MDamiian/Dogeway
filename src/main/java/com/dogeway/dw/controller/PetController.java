@@ -1,6 +1,7 @@
 package com.dogeway.dw.controller;
 
 import com.dogeway.dw.mascota.*;
+import com.dogeway.dw.usuario.RegisterDTO;
 import com.dogeway.dw.usuario.UserResponseDTO;
 import com.dogeway.dw.usuario.Usuario;
 import com.dogeway.dw.usuario.UsuarioRepository;
@@ -10,7 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -102,4 +105,16 @@ public class PetController {
         return ResponseEntity.created(url).body(petResponseDTO);
     }
 
+    @PutMapping("/update")
+    @Transactional
+    public ResponseEntity<UserResponseDTO> updatePet(@RequestBody @Valid RegisterPetDTO registerPetDTO) {
+        Mascota mascota = null;
+
+        if (mascota != null) {
+            mascota.actualizarDatos(registerPetDTO);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 }
