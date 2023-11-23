@@ -94,9 +94,9 @@ public class PetController {
 
 
     @GetMapping("/listallpets")
-    public ResponseEntity<List<PetResponseDTO>> listAllPets(@RequestParam String correo) {
+    public ResponseEntity<List<PetResponseDTO>> listAllPets(@RequestParam String correo,@RequestParam UtilidadDeMascota utilidadDeMascota) {
 
-        List<Mascota> mascotas = mascotaRepository.findAllByPropietarioCorreo(correo);
+        List<Mascota> mascotas = mascotaRepository.findAllByPropietarioCorreoAndUtilidadDeMascota(correo,utilidadDeMascota);
 
         List<PetResponseDTO> petResponseDTOs = mascotas.stream()
                 .map(mascota -> new PetResponseDTO(mascota.getIdMascota(), mascota.getNombre(),

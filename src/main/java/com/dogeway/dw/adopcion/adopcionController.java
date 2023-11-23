@@ -55,7 +55,7 @@ public class adopcionController {
                         return ResponseEntity.ok(Adopcion);
 
                     }else{
-                        adopcion NotFound=new adopcion(-1L,-1L,"NOT FOUND",Status.PENDIENTE);
+                        adopcion NotFound=new adopcion(-1L,-1L,"NOTFOUND",Status.PENDIENTE);
                         return ResponseEntity.ok(NotFound);
                     }
 
