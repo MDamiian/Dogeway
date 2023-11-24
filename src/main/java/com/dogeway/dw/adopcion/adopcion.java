@@ -1,7 +1,7 @@
 package com.dogeway.dw.adopcion;
 
 
-import com.dogeway.dw.match.Status;
+import com.dogeway.dw.adopcion.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

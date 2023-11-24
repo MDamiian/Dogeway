@@ -36,6 +36,19 @@ public class UserController {
         return ResponseEntity.ok(usuarioRepository.findAll(paginacion).map(UserResponseDTO::new));
     }
 
+    @GetMapping("/userById")
+    public ResponseEntity<Usuario> loadUserById(@RequestParam Long Id) {
+        Usuario usuario = usuarioRepository.getById(Id);
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario);
+        } else {
+            // Manejo de caso en el que el usuario no se encuentra
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
     @GetMapping("/user")
     public ResponseEntity<Usuario> loadUserByUsername(@RequestParam String correo) {
         Usuario usuario = usuarioRepository.findUsuarioByCorreo(correo);
@@ -65,3 +78,6 @@ public class UserController {
     }
 
 }
+
+
+
