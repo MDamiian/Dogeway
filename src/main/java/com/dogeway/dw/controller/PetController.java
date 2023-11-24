@@ -70,10 +70,33 @@ public class PetController {
         return ResponseEntity.ok(paginaMascotasDTO);
     }
 
-    @GetMapping("/listallpets")
-    public ResponseEntity<List<PetResponseDTO>> listAllPets(@RequestParam String correo) {
 
-        List<Mascota> mascotas = mascotaRepository.findAllByPropietarioCorreo(correo);
+    @GetMapping("/exploreAdopt")
+    public ResponseEntity<Page<PetResponseDTO>> AdoptToListByAnimal(@PageableDefault(size = 1) Pageable paginacion,
+                                                                      @RequestParam UtilidadDeMascota utilidadDeMascota) {
+        Page<Mascota> paginaMascotas = mascotaRepository.findByUtilidadDeMascota(paginacion, utilidadDeMascota);
+
+        List<PetResponseDTO> listaMascotasDTO = paginaMascotas.map
+                (
+                        mascota -> new PetResponseDTO
+                                (
+                                        mascota.getIdMascota(), mascota.getNombre(),
+                                        mascota.getAnimal(), mascota.getUtilidadDeMascota(), mascota.getTamano(),
+                                        mascota.getDescripcion(), mascota.getPersonalidad(),
+                                        mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
+                                )
+                ).getContent();
+        Page<PetResponseDTO> paginaMascotasDTO = new PageImpl<>(listaMascotasDTO, paginacion, paginaMascotas.getTotalElements());
+
+        return ResponseEntity.ok(paginaMascotasDTO);
+    }
+
+
+
+    @GetMapping("/listallpets")
+    public ResponseEntity<List<PetResponseDTO>> listAllPets(@RequestParam String correo,@RequestParam UtilidadDeMascota utilidadDeMascota) {
+
+        List<Mascota> mascotas = mascotaRepository.findAllByPropietarioCorreoAndUtilidadDeMascota(correo,utilidadDeMascota);
 
         List<PetResponseDTO> petResponseDTOs = mascotas.stream()
                 .map(mascota -> new PetResponseDTO(mascota.getIdMascota(), mascota.getNombre(),
