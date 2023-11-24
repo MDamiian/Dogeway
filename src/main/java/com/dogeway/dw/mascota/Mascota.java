@@ -29,6 +29,7 @@ public class Mascota {
     private String descripcion;
     @Enumerated(EnumType.STRING)
     private Personalidad personalidad;
+    @Column
     private String foto;
     private boolean genero;
     @ManyToOne(fetch = FetchType.LAZY)
