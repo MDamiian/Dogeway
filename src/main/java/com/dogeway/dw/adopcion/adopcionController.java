@@ -38,9 +38,6 @@ public class adopcionController {
         }
     }
 
-
-
-
     @GetMapping("/status")
     public ResponseEntity<adopcion> verifyStatus(@RequestParam Long id_user, @RequestParam Long id_user_propietario) {
 
