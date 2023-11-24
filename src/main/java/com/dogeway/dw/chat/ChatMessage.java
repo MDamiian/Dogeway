@@ -14,8 +14,8 @@ import java.io.Serializable;
 public class ChatMessage implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String user;
+    private Long idchat;
+    private Long sender;
     private Long sendTo;
     private String message;
 }
