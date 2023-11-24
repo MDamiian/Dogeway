@@ -1,6 +1,5 @@
 package com.dogeway.dw.security;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.dogeway.dw.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

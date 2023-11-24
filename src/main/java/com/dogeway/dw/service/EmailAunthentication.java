@@ -8,8 +8,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 public class EmailAunthentication implements MailSender {
     JavaMailSender javaMailSender = null;
 
-    public void emailAuthentication(String email){
-        SimpleMailMessage simpleMailMessage =  new SimpleMailMessage();
+    public void emailAuthentication(String email) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(email);
         simpleMailMessage.setSubject("Código de Verificación - Dogeway");
         simpleMailMessage.setText("¡Gracias por registrarte en Dogeway!\n\n" +

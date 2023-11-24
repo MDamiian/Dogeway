@@ -1,4 +1,5 @@
 package com.dogeway.dw.mascota;
+
 import com.dogeway.dw.usuario.UserResponseDTO;
 
 public record PetResponseDTO(

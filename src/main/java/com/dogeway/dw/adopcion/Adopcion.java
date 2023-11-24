@@ -1,7 +1,5 @@
 package com.dogeway.dw.adopcion;
 
-
-import com.dogeway.dw.adopcion.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,28 +12,22 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class adopcion {
+public class Adopcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idadopcion;
-
     private Long iduser;
     private Long iduserpropietario;
-
     private String message;
-
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
-
-    public adopcion(Long iduser, Long iduserpropietario,String message,Status status) {
+    public Adopcion(Long iduser, Long iduserpropietario, String message, Status status) {
         this.iduser = iduser;
         this.iduserpropietario = iduserpropietario;
-        this.message=message;
+        this.message = message;
         this.status = status;
     }
-
 }
 
 

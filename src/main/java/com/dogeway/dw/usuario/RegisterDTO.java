@@ -6,13 +6,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.sql.Blob;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Base64;
-import java.util.List;
 
 public record RegisterDTO(
         @NotBlank

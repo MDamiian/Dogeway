@@ -1,6 +1,5 @@
 package com.dogeway.dw.usuario;
 
-import com.dogeway.dw.mascota.Mascota;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,7 +11,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Usuario getReferenceByCorreo(String correo);
 
     List<Usuario> findAllByIdIn(List<Long> ids);
-
 
     Usuario findUsuarioByCorreo(String correo);
 

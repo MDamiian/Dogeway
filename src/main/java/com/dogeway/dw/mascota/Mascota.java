@@ -36,7 +36,7 @@ public class Mascota {
     @JsonBackReference
     private Usuario propietario;
 
-    public Mascota(RegisterPetDTO registerPetDTO, Usuario usuario){
+    public Mascota(RegisterPetDTO registerPetDTO, Usuario usuario) {
         this.nombre = registerPetDTO.nombre();
         this.animal = registerPetDTO.animal();
         this.utilidadDeMascota = registerPetDTO.utilidadDeMascota();

@@ -1,7 +1,6 @@
 package com.dogeway.dw.controller;
 
 import com.dogeway.dw.mascota.*;
-import com.dogeway.dw.usuario.RegisterDTO;
 import com.dogeway.dw.usuario.UserResponseDTO;
 import com.dogeway.dw.usuario.Usuario;
 import com.dogeway.dw.usuario.UsuarioRepository;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +43,8 @@ public class PetController {
                                 )
                 ).getContent();
 
-        Page<PetResponseDTO> paginaMascotasDTO = new PageImpl<>(listaMascotasDTO, paginacion, paginaMascotas.getTotalElements());
+        Page<PetResponseDTO> paginaMascotasDTO = new PageImpl<>(listaMascotasDTO,
+                paginacion, paginaMascotas.getTotalElements());
 
         return ResponseEntity.ok(paginaMascotasDTO);
     }
@@ -53,6 +52,7 @@ public class PetController {
     @GetMapping("/explore-byanimal")
     public ResponseEntity<Page<PetResponseDTO>> mascotaToListByAnimal(@PageableDefault(size = 1) Pageable paginacion,
                                                                       @RequestParam Animal animal, @RequestParam Tamano tamano, @RequestParam boolean genero, @RequestParam UtilidadDeMascota utilidadDeMascota) {
+
         Page<Mascota> paginaMascotas = mascotaRepository.findByAnimalAndTamanoAndGeneroAndUtilidadDeMascota(animal, tamano, genero, paginacion, utilidadDeMascota);
 
         List<PetResponseDTO> listaMascotasDTO = paginaMascotas.map
@@ -65,15 +65,16 @@ public class PetController {
                                         mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
                                 )
                 ).getContent();
-        Page<PetResponseDTO> paginaMascotasDTO = new PageImpl<>(listaMascotasDTO, paginacion, paginaMascotas.getTotalElements());
+        Page<PetResponseDTO> paginaMascotasDTO = new PageImpl<>(listaMascotasDTO,
+                paginacion, paginaMascotas.getTotalElements());
 
         return ResponseEntity.ok(paginaMascotasDTO);
     }
 
-
     @GetMapping("/exploreAdopt")
     public ResponseEntity<Page<PetResponseDTO>> AdoptToListByAnimal(@PageableDefault(size = 1) Pageable paginacion,
-                                                                      @RequestParam UtilidadDeMascota utilidadDeMascota) {
+                                                                    @RequestParam UtilidadDeMascota utilidadDeMascota) {
+
         Page<Mascota> paginaMascotas = mascotaRepository.findByUtilidadDeMascota(paginacion, utilidadDeMascota);
 
         List<PetResponseDTO> listaMascotasDTO = paginaMascotas.map
@@ -86,17 +87,20 @@ public class PetController {
                                         mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())
                                 )
                 ).getContent();
-        Page<PetResponseDTO> paginaMascotasDTO = new PageImpl<>(listaMascotasDTO, paginacion, paginaMascotas.getTotalElements());
+
+        Page<PetResponseDTO> paginaMascotasDTO = new PageImpl<>(listaMascotasDTO,
+                paginacion, paginaMascotas.getTotalElements());
 
         return ResponseEntity.ok(paginaMascotasDTO);
     }
 
 
-
     @GetMapping("/listallpets")
-    public ResponseEntity<List<PetResponseDTO>> listAllPets(@RequestParam String correo,@RequestParam UtilidadDeMascota utilidadDeMascota) {
+    public ResponseEntity<List<PetResponseDTO>> listAllPets(@RequestParam String correo,
+                                                            @RequestParam UtilidadDeMascota utilidadDeMascota) {
 
-        List<Mascota> mascotas = mascotaRepository.findAllByPropietarioCorreoAndUtilidadDeMascota(correo,utilidadDeMascota);
+        List<Mascota> mascotas = mascotaRepository.findAllByPropietarioCorreoAndUtilidadDeMascota
+                (correo, utilidadDeMascota);
 
         List<PetResponseDTO> petResponseDTOs = mascotas.stream()
                 .map(mascota -> new PetResponseDTO(mascota.getIdMascota(), mascota.getNombre(),
@@ -131,13 +135,8 @@ public class PetController {
     @PutMapping("/update")
     @Transactional
     public ResponseEntity<UserResponseDTO> updatePet(@RequestBody @Valid RegisterPetDTO registerPetDTO) {
-        Mascota mascota = null;
-
-        if (mascota != null) {
-            mascota.actualizarDatos(registerPetDTO);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        Mascota mascota = new Mascota();
+        mascota.actualizarDatos(registerPetDTO);
+        return ResponseEntity.ok().build();
     }
 }
