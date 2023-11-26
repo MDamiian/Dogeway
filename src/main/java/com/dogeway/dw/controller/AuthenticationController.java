@@ -2,6 +2,7 @@ package com.dogeway.dw.controller;
 
 import com.dogeway.dw.security.DatosJWTToken;
 import com.dogeway.dw.security.TokenService;
+import com.dogeway.dw.service.EmailAuthentication;
 import com.dogeway.dw.usuario.LoginDTO;
 import com.dogeway.dw.usuario.Usuario;
 import jakarta.validation.Valid;
@@ -20,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    EmailAuthentication emailAuthentication;
 
     @PostMapping
     public ResponseEntity autenticarUsuario(@RequestBody @Valid LoginDTO login) {
@@ -30,6 +32,8 @@ public class AuthenticationController {
                 login.password());
         var usuarioAutenticado = authenticationManager.authenticate(authToken);
         var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
+
+//        emailAuthentication.enviarCorreo("osvaldo.damian72@gmail.com", "Prueba", "Hola");
         return ResponseEntity.ok(new DatosJWTToken(JWTtoken));
     }
 }

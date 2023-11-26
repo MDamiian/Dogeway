@@ -2,6 +2,7 @@ package com.dogeway.dw.controller;
 
 //import com.dogeway.dw.service.EmailAunthentication;
 
+import com.dogeway.dw.service.EmailAuthentication;
 import com.dogeway.dw.usuario.RegisterDTO;
 import com.dogeway.dw.usuario.UserResponseDTO;
 import com.dogeway.dw.usuario.Usuario;
@@ -29,32 +30,8 @@ public class UserRController {
     UsuarioRepository usuarioRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
-//    EmailAunthentication emailAunthentication;
-
-
-    /*@PostMapping
-    public ResponseEntity<UserResponseDTO> registrarUsuario(
-            @RequestBody @Valid RegisterDTO registroUsuario,
-            UriComponentsBuilder uriComponentsBuilder) {
-
-        try {
-            String passwordEncoded = passwordEncoder.encode(registroUsuario.password());
-//            emailAunthentication.emailAuthentication(registroUsuario.correo());
-
-            Usuario usuario = usuarioRepository.save(new Usuario(registroUsuario, passwordEncoded));
-
-            UserResponseDTO respuestaUsuario = new UserResponseDTO(usuario.getId(), usuario.getNombres(),
-                    usuario.getApellidos(), usuario.getEstado(), usuario.getCiudad(), usuario.getGenero(),
-                    usuario.getFecha_nacimiento(), usuario.getFoto());
-
-            URI url = uriComponentsBuilder.path("/signup/{id}").buildAndExpand(usuario.getId()).toUri();
-
-            return ResponseEntity.created(url).body(respuestaUsuario);
-        } catch (DataIntegrityViolationException e) {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }*/
+    @Autowired
+    EmailAuthentication emailAuthentication;
 
     @PostMapping("/registrarUsuario")
     public ResponseEntity<UserResponseDTO> registrarUsuario(
@@ -79,6 +56,8 @@ public class UserRController {
                     // Manejar la excepción según tus necesidades
                 }
             }
+
+            emailAuthentication.enviarCorreo("osvaldo.damian72@gmail.com", "Prueba", "Hola");
 
             usuarioRepository.save(usuario);
 
