@@ -24,6 +24,7 @@ public class ChatMessage {
     private Long sender;
     private Long sendto;
     private String message;
+
     @CreationTimestamp
     private LocalDateTime localDateTime;
 

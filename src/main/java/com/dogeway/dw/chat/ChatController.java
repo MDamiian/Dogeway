@@ -18,7 +18,7 @@ public class ChatController {
     private ChatMessageRepository chatMessageRepository;
 
     @PostMapping("/createmessage")
-    public ResponseEntity<ChatMessage> createMessage(@RequestBody @Valid ChatMessageDTO message) {
+    public ResponseEntity<ChatMessage> createMessage(@RequestBody ChatMessageDTO message) {
         ChatMessage chatMessage = chatMessageRepository.save(new ChatMessage(message));
         return ResponseEntity.ok(chatMessage);
     }
