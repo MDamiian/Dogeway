@@ -33,7 +33,7 @@ public record RegisterDTO(
         String ciudad,
         @NotBlank
         String telefono,
-        @NotNull
+        @NotBlank
         String foto,
         @NotBlank
         String password

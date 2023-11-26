@@ -32,11 +32,11 @@ public class UserRController {
     PasswordEncoder passwordEncoder;
     @Autowired
     EmailAuthentication emailAuthentication;
-
-    @PostMapping("/registrarUsuario")
+    @PostMapping
     public ResponseEntity<UserResponseDTO> registrarUsuario(
-            @RequestPart(name = "file", required = false) MultipartFile foto,
-            @RequestPart("registerDTO") @Valid RegisterDTO registroUsuario,
+//            @RequestPart(name = "file", required = false) MultipartFile foto,
+//            @RequestPart("registerDTO")
+            @Valid @RequestBody RegisterDTO registroUsuario,
             UriComponentsBuilder uriComponentsBuilder) {
 
         try {
@@ -44,20 +44,20 @@ public class UserRController {
 
             Usuario usuario = new Usuario(registroUsuario, passwordEncoded);
 
-            // Guardar la foto si se proporciona
-            if (foto != null && !foto.isEmpty()) {
-                String ruta = "C://Users//angel//OneDrive - Universidad de Guadalajara//ING INFORMATICA//4TO//INGENERIA DE SOFTWARE//fotos";
-                try {
-                    byte[] bytes = foto.getBytes();
-                    Path rutaAbsoluta = Paths.get(ruta + "//" + foto.getOriginalFilename());
-                    Files.write(rutaAbsoluta, bytes);
-                    usuario.setFoto(foto.getOriginalFilename());
-                } catch (Exception e) {
-                    // Manejar la excepción según tus necesidades
-                }
-            }
+//            Guardar la foto si se proporciona
+//            if (foto != null && !foto.isEmpty()) {
+//                String ruta = "C://Users//angel//OneDrive - Universidad de Guadalajara//ING INFORMATICA//4TO//INGENERIA DE SOFTWARE//fotos";
+//                try {
+//                    byte[] bytes = foto.getBytes();
+//                    Path rutaAbsoluta = Paths.get(ruta + "//" + foto.getOriginalFilename());
+//                    Files.write(rutaAbsoluta, bytes);
+//                    usuario.setFoto(foto.getOriginalFilename());
+//                } catch (Exception e) {
+//                    // Manejar la excepción según tus necesidades
+//                }
+//            }
 
-            emailAuthentication.enviarCorreo("osvaldo.damian72@gmail.com", "Prueba", "Hola");
+//            emailAuthentication.enviarCorreo("osvaldo.damian72@gmail.com", "Prueba", "Hola");
 
             usuarioRepository.save(usuario);
 
