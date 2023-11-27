@@ -13,4 +13,6 @@ public interface MacotaRepository extends JpaRepository<Mascota, Long> {
     List<Mascota> findAllByPropietarioCorreoAndUtilidadDeMascota(String correo, UtilidadDeMascota utilidadDeMascota);
 
     Page<Mascota> findByUtilidadDeMascota(Pageable paginacion, UtilidadDeMascota utilidadDeMascota);
+
+    Mascota getReferenceByPropietarioIdAndNombre(Long id, String nombre);
 }

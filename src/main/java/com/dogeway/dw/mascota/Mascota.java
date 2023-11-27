@@ -3,6 +3,7 @@ package com.dogeway.dw.mascota;
 import com.dogeway.dw.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,7 @@ public class Mascota {
     @JsonBackReference
     private Usuario propietario;
 
-    public Mascota(RegisterPetDTO registerPetDTO, Usuario usuario) {
+    public Mascota(@Valid RegisterPetDTO registerPetDTO, Usuario usuario) {
         this.nombre = registerPetDTO.nombre();
         this.animal = registerPetDTO.animal();
         this.utilidadDeMascota = registerPetDTO.utilidadDeMascota();
@@ -49,7 +50,7 @@ public class Mascota {
         this.propietario = usuario;
     }
 
-    public void actualizarDatos(RegisterPetDTO registerPetDTO) {
+    public void actualizarDatos(UpdatePetDTO registerPetDTO) {
         this.nombre = registerPetDTO.nombre();
         this.animal = registerPetDTO.animal();
         this.utilidadDeMascota = registerPetDTO.utilidadDeMascota();

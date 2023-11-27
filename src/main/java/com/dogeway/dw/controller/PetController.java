@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -134,9 +135,14 @@ public class PetController {
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<UserResponseDTO> updatePet(@RequestBody @Valid RegisterPetDTO registerPetDTO) {
-        Mascota mascota = new Mascota();
-        mascota.actualizarDatos(registerPetDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserResponseDTO> updatePet(@RequestBody @Valid UpdatePetDTO updatePetDTO) {
+
+        Mascota mascota = mascotaRepository.getReferenceById(updatePetDTO.idmascota());
+
+        if (mascota != null) {
+            mascota.actualizarDatos(updatePetDTO);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }
