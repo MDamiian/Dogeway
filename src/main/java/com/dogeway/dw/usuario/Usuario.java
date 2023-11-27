@@ -55,6 +55,20 @@ public class Usuario implements UserDetails {
         this.password = passwordEncoded;
     }
 
+    public Usuario(String nombre, String apellidos, String correo, Intereses intereses, Genero genero, Date fechaNacimiento, String pais, String estado, String ciudad, String telefono, String passwordEncoded) {
+        this.nombres=nombre;
+        this.apellidos=apellidos;
+        this.correo=correo;
+        this.intereses=intereses;
+        this.genero=genero;
+        this.fecha_nacimiento=fechaNacimiento;
+        this.pais=pais;
+        this.estado=estado;
+        this.ciudad=ciudad;
+        this.telefono=telefono;
+        this.password=passwordEncoded;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
