@@ -14,9 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -115,10 +119,34 @@ public class PetController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<PetResponseDTO> registrarMascota(@RequestBody @Valid RegisterPetDTO registroMascota, UriComponentsBuilder uriComponentsBuilder) {
-        Optional<Usuario> propietarioOptional = usuarioRepository.findById(registroMascota.id());
+    public ResponseEntity<PetResponseDTO> registrarMascota(
+            @RequestParam("nombre") String nombre,
+            @RequestParam("animal") Animal animal,
+            @RequestParam("utilidadDeMascota") UtilidadDeMascota utilidadDeMascota,
+            @RequestParam("tamano") Tamano tamano,
+            @RequestParam("descripcion") String descripcion,
+            @RequestParam("personalidad") Personalidad personalidad,
+            @RequestParam("genero") boolean genero,
+            @RequestParam("id") Long id,
+            @RequestParam("foto") MultipartFile foto,
+            UriComponentsBuilder uriComponentsBuilder) {
+        Optional<Usuario> propietarioOptional = usuarioRepository.findById(id);
 
-        Mascota mascota = mascotaRepository.save(new Mascota(registroMascota, propietarioOptional.get()));
+        Mascota mascota = new Mascota(nombre, animal, utilidadDeMascota, tamano,
+                descripcion, personalidad, genero, propietarioOptional.get());
+
+        if (foto != null && !foto.isEmpty()) {
+            String ruta = "C://Users//Hp Laptop//Desktop//DogeFront//Dogeway_Front//Img_pet";
+            try {
+                byte[] bytes = foto.getBytes();
+                Path rutaAbsoluta = Paths.get(ruta + "//" + foto.getOriginalFilename());
+                Files.write(rutaAbsoluta, bytes);
+                mascota.setFoto(foto.getOriginalFilename());
+            } catch (Exception e) {
+                // Manejar la excepción según tus necesidades
+            }
+        }
+        mascotaRepository.save(mascota);
 
         PetResponseDTO petResponseDTO = new PetResponseDTO
                 (

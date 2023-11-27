@@ -50,6 +50,18 @@ public class Mascota {
         this.propietario = usuario;
     }
 
+    public Mascota(String nombre, Animal animal, UtilidadDeMascota utilidadDeMascota, Tamano tamano,
+                   String descripcion, Personalidad personalidad, boolean genero, Usuario usuario) {
+        this.nombre = nombre;
+        this.animal = animal;
+        this.utilidadDeMascota = utilidadDeMascota;
+        this.tamano = tamano;
+        this.descripcion =  descripcion;
+        this.personalidad = personalidad;
+        this.genero = genero;
+        this.propietario = usuario;
+    }
+
     public void actualizarDatos(UpdatePetDTO registerPetDTO) {
         this.nombre = registerPetDTO.nombre();
         this.animal = registerPetDTO.animal();
