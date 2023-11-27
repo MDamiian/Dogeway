@@ -137,11 +137,13 @@ public class PetController {
 
         if (foto != null && !foto.isEmpty()) {
             String ruta = "C://Users//Hp Laptop//Desktop//DogeFront//Dogeway_Front//Img_pet";
+            String rutaVisual="/Img_pet";
             try {
                 byte[] bytes = foto.getBytes();
                 Path rutaAbsoluta = Paths.get(ruta + "//" + foto.getOriginalFilename());
+                String rutaAbsolutaVisual=rutaVisual+"/"+foto.getOriginalFilename();
                 Files.write(rutaAbsoluta, bytes);
-                mascota.setFoto(foto.getOriginalFilename());
+                mascota.setFoto(rutaAbsolutaVisual);
             } catch (Exception e) {
                 // Manejar la excepción según tus necesidades
             }

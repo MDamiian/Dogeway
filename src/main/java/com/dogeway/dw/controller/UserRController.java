@@ -57,11 +57,13 @@ public class UserRController {
             //          Guardar la foto si se proporciona
             if (foto != null && !foto.isEmpty()) {
                 String ruta = "C://Users//Hp Laptop//Desktop//DogeFront//Dogeway_Front//Img_user";
+                String rutaVisual="/Img_user";
                 try {
                     byte[] bytes = foto.getBytes();
                     Path rutaAbsoluta = Paths.get(ruta + "//" + foto.getOriginalFilename());
+                    String rutaAbsolutaVisual=rutaVisual+"/"+foto.getOriginalFilename();
                     Files.write(rutaAbsoluta, bytes);
-                    usuario.setFoto(foto.getOriginalFilename());
+                    usuario.setFoto(rutaAbsolutaVisual);
                 } catch (Exception e) {
                     // Manejar la excepción según tus necesidades
                 }
