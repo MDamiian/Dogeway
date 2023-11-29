@@ -106,13 +106,19 @@ public class UserController {
     }*/
 
 
-    //DELETE fisico
-    @DeleteMapping("/{id}") //Para decir que va a tener una variable
+    @DeleteMapping("/{id}")
     @Transactional
-    public void eliminarUsuario(@PathVariable Long id){ //Para decir que viene del path
+    public ResponseEntity<String> eliminarUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioRepository.getReferenceById(id);
-        usuarioRepository.delete(usuario);
+
+        if (usuario != null) {
+            usuarioRepository.delete(usuario);
+            return ResponseEntity.ok("Usuario eliminado correctamente");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
 
 }

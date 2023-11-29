@@ -191,10 +191,18 @@ public class PetController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @DeleteMapping("/{id}") //Para decir que va a tener una variable
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @Transactional
-    public void deletePet(@PathVariable Long id){ //Para decir que viene del path
+    public ResponseEntity<Mascota> deletePet(@PathVariable Long id) {
         Mascota mascota = mascotaRepository.getReferenceById(id);
-        mascotaRepository.delete(mascota);
+
+        if (mascota != null) {
+            mascotaRepository.delete(mascota);
+            return ResponseEntity.ok().build();
+        } else {
+            // Devuelve una respuesta adecuada si la mascota no se encuentra
+            return ResponseEntity.notFound().build();
+        }
     }
+
 }
