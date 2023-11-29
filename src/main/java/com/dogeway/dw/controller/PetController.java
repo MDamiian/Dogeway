@@ -117,6 +117,21 @@ public class PetController {
         return ResponseEntity.ok().body(petResponseDTOs);
     }
 
+    @GetMapping("/listallpetuser")
+    public ResponseEntity<List<PetResponseDTO>> listAllPets(@RequestParam String correo) {
+
+        List<Mascota> mascotas = mascotaRepository.findAllByPropietarioCorreo(correo);
+
+        List<PetResponseDTO> petResponseDTOs = mascotas.stream()
+                .map(mascota -> new PetResponseDTO(mascota.getIdMascota(), mascota.getNombre(),
+                        mascota.getAnimal(), mascota.getUtilidadDeMascota(), mascota.getTamano(),
+                        mascota.getDescripcion(), mascota.getPersonalidad(),
+                        mascota.getFoto(), mascota.isGenero(), new UserResponseDTO(mascota.getPropietario())))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(petResponseDTOs);
+    }
+
 
     @PostMapping("/create")
     public ResponseEntity<PetResponseDTO> registrarMascota(
@@ -163,7 +178,7 @@ public class PetController {
         return ResponseEntity.created(url).body(petResponseDTO);
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     @Transactional
     public ResponseEntity<UserResponseDTO> updatePet(@RequestBody @Valid UpdatePetDTO updatePetDTO) {
 
