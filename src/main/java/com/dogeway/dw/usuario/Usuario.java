@@ -104,7 +104,7 @@ public class Usuario implements UserDetails {
         return true;
     }
 
-    public void actualizarDatos(RegisterDTO registroUsuario, String passwordEncoded) {
+    public void actualizarDatos(UserUpdateDto registroUsuario, String passwordEncoded) {
         this.nombres = registroUsuario.nombres();
         this.apellidos = registroUsuario.apellidos();
         this.correo = registroUsuario.correo();
@@ -115,7 +115,6 @@ public class Usuario implements UserDetails {
         this.estado = registroUsuario.estado();
         this.ciudad = registroUsuario.estado();
         this.telefono = registroUsuario.telefono();
-        this.foto = registroUsuario.foto();
         this.password = passwordEncoded;
     }
 }

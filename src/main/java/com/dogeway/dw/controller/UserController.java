@@ -1,9 +1,6 @@
 package com.dogeway.dw.controller;
 
-import com.dogeway.dw.usuario.RegisterDTO;
-import com.dogeway.dw.usuario.UserResponseDTO;
-import com.dogeway.dw.usuario.Usuario;
-import com.dogeway.dw.usuario.UsuarioRepository;
+import com.dogeway.dw.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,12 +49,12 @@ public class UserController {
         }
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     @Transactional
-    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody @Valid RegisterDTO registerDTO) {
-        String passwordEncoded = passwordEncoder.encode(registerDTO.password());
+    public ResponseEntity<UserUpdateDto> updateUser(@RequestBody @Valid UserUpdateDto registerDTO) {
 
-        if (passwordEncoded != null) {
+        if (registerDTO.password() != "") {
+            String passwordEncoded = passwordEncoder.encode(registerDTO.password());
             Usuario usuario = usuarioRepository.getReferenceByCorreo(registerDTO.correo());
 
             if (usuario != null) {
