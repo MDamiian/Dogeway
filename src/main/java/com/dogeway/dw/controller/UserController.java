@@ -53,14 +53,25 @@ public class UserController {
     @Transactional
     public ResponseEntity<UserUpdateDto> updateUser(@RequestBody @Valid UserUpdateDto registerDTO) {
 
-        if (registerDTO.password() != "") {
+        if (registerDTO.password().isEmpty()) {
             String passwordEncoded = passwordEncoder.encode(registerDTO.password());
             Usuario usuario = usuarioRepository.getReferenceByCorreo(registerDTO.correo());
 
             if (usuario != null) {
                 usuario.actualizarDatos(registerDTO, passwordEncoded);
-                return ResponseEntity.ok().build();
+
+                return ResponseEntity.ok(registerDTO);
+
             }
+        }else{
+            Usuario usuario = usuarioRepository.getReferenceByCorreo(registerDTO.correo());
+
+            if (usuario != null) {
+                usuario.actualizarDatos(registerDTO, usuario.getPassword());
+                return ResponseEntity.ok(registerDTO);
+
+            }
+
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
