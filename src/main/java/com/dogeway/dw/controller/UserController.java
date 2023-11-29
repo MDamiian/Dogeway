@@ -89,19 +89,7 @@ public class UserController {
     @Autowired
     private EmailAuthentication emailAuthentication;
 
-    @PostMapping("/verifier")
-    public ResponseEntity<String> enviarCodigoVerificacion(@RequestParam String correo) {
-        SecureRandom random = new SecureRandom();
-        String codigoVerificacion = "12345"; /*= new BigInteger(30, random).toString(6);*/
 
-        // Enviar código de verificación al correo
-        String asunto = "Código de verificación de Dogeway";
-        String cuerpo = "Su código de verificación es: " + codigoVerificacion;
-
-        emailAuthentication.enviarCorreo(correo, asunto, cuerpo);
-
-        return ResponseEntity.ok("Código de verificación enviado con éxito");
-    }
 
 }
 

@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.sql.Date;
 
 @RestController
@@ -69,7 +71,6 @@ public class UserRController {
                 }
             }
 
-            emailAuthentication.enviarCorreo("osvaldo.damian72@gmail.com", "Prueba", "Hola");
 
             usuarioRepository.save(usuario);
 
@@ -85,6 +86,16 @@ public class UserRController {
         }
 
 
+    }
+
+    @PostMapping("/verifier")
+    public ResponseEntity<?> enviarCorreoDeVerificacion(@RequestParam String correo){
+        SecureRandom random = new SecureRandom();
+        String codigoVerificacion = new BigInteger(30, random).toString(6);
+
+        emailAuthentication.enviarCorreo(correo, "Codigo de verificacion", codigoVerificacion);
+
+        return ResponseEntity.ok(codigoVerificacion);
     }
 
 }

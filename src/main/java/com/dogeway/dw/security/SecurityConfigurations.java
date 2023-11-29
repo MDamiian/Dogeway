@@ -26,7 +26,7 @@ public class SecurityConfigurations {
         return httpSecurity.cors().and().csrf().disable().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Le indiamos a Spring el tipo de sesion
                 .and().authorizeRequests()
-                .requestMatchers(HttpMethod.POST, "/login", "/signup")
+                .requestMatchers(HttpMethod.POST, "/login", "/signup", "/signup/verifier")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
