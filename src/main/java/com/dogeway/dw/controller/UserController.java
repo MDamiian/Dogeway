@@ -26,6 +26,9 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailAuthentication emailAuthentication;
+
     @GetMapping
     ResponseEntity<Page<UserResponseDTO>> userToList(@PageableDefault(size = 1) Pageable paginacion) {
         return ResponseEntity.ok(usuarioRepository.findAll(paginacion).map(UserResponseDTO::new));
@@ -86,9 +89,30 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @Autowired
-    private EmailAuthentication emailAuthentication;
+   /*DELETE LOGICO
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Usuario> eliminarUsuario(@PathVariable Long id){
+        Usuario usuario = usuarioRepository.getReferenceById(id);
+        usuario.desactivarUsuario();
+        return ResponseEntity.noContent().build();
 
+
+        En la clase usuario agregar, y un atributo a la tabla boolean "activo":
+
+        public void desactivarUsuario() {
+        this.activo = false;
+    }
+    }*/
+
+
+    //DELETE fisico
+    @DeleteMapping("/{id}") //Para decir que va a tener una variable
+    @Transactional
+    public void eliminarUsuario(@PathVariable Long id){ //Para decir que viene del path
+        Usuario usuario = usuarioRepository.getReferenceById(id);
+        usuarioRepository.delete(usuario);
+    }
 
 
 }

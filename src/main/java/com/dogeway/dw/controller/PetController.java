@@ -190,4 +190,11 @@ public class PetController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
+    @DeleteMapping("/{id}") //Para decir que va a tener una variable
+    @Transactional
+    public void deletePet(@PathVariable Long id){ //Para decir que viene del path
+        Mascota mascota = mascotaRepository.getReferenceById(id);
+        mascotaRepository.delete(mascota);
+    }
 }
