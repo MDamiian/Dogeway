@@ -18,8 +18,6 @@ public record UpdatePetDTO(
         String descripcion,
         @NotNull
         Personalidad personalidad,
-        @NotBlank
-        String foto,
         @NotNull
         boolean genero
 ) {

@@ -69,7 +69,6 @@ public class Mascota {
         this.tamano = registerPetDTO.tamano();
         this.descripcion = registerPetDTO.descripcion();
         this.personalidad = registerPetDTO.personalidad();
-        this.foto = registerPetDTO.foto();
         this.genero = registerPetDTO.genero();
     }
 }
