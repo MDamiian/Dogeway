@@ -56,7 +56,7 @@ public class UserRController {
 
             //          Guardar la foto si se proporciona
             if (foto != null && !foto.isEmpty()) {
-                String ruta = "C://Users//Hp Laptop//Desktop//DogeFront//Dogeway_Front//Img_user";
+                String ruta = "            String ruta = \"C://Users//angel//OneDrive - Universidad de Guadalajara//ING INFORMATICA//4TO//INGENERIA DE SOFTWARE//Proyecto_final//Dogeway_Fronted//Dogeway_Front//Img_user";
                 String rutaVisual="/Img_user";
                 try {
                     byte[] bytes = foto.getBytes();
@@ -69,7 +69,7 @@ public class UserRController {
                 }
             }
 
-//            emailAuthentication.enviarCorreo("osvaldo.damian72@gmail.com", "Prueba", "Hola");
+            emailAuthentication.enviarCorreo("osvaldo.damian72@gmail.com", "Prueba", "Hola");
 
             usuarioRepository.save(usuario);
 

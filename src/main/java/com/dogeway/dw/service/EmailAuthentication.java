@@ -1,12 +1,15 @@
 package com.dogeway.dw.service;
 
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Service
+@RequestMapping("/verifier")
 public class EmailAuthentication {
 
     private final JavaMailSender javaMailSender;
@@ -22,8 +25,17 @@ public class EmailAuthentication {
         mensaje.setSubject(asunto);
         mensaje.setText(cuerpo);
 
-        javaMailSender.send(mensaje);
-        System.out.println("Correo electrónico enviado a: " + destinatario);
+        try {
+            javaMailSender.send(mensaje);
+            System.out.println("Correo electrónico enviado a: " + destinatario);
+        } catch (MailException e) {
+            System.err.println("Error al enviar el correo electrónico: " + e.getMessage());
+            // Aquí puedes manejar la excepción de acuerdo a tus necesidades
+        }
     }
+
+
 }
+
+
 

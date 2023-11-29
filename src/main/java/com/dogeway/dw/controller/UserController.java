@@ -1,5 +1,6 @@
 package com.dogeway.dw.controller;
 
+import com.dogeway.dw.service.EmailAuthentication;
 import com.dogeway.dw.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 
 @RestController
@@ -75,6 +79,23 @@ public class UserController {
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @Autowired
+    private EmailAuthentication emailAuthentication;
+
+    @PostMapping("/verifier")
+    public ResponseEntity<String> enviarCodigoVerificacion(@RequestParam String correo) {
+        SecureRandom random = new SecureRandom();
+        String codigoVerificacion = "12345"; /*= new BigInteger(30, random).toString(6);*/
+
+        // Enviar código de verificación al correo
+        String asunto = "Código de verificación de Dogeway";
+        String cuerpo = "Su código de verificación es: " + codigoVerificacion;
+
+        emailAuthentication.enviarCorreo(correo, asunto, cuerpo);
+
+        return ResponseEntity.ok("Código de verificación enviado con éxito");
     }
 
 }
