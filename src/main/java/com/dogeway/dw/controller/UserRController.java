@@ -58,7 +58,7 @@ public class UserRController {
 
             //          Guardar la foto si se proporciona
             if (foto != null && !foto.isEmpty()) {
-                String ruta = "            String ruta = \"C://Users//angel//OneDrive - Universidad de Guadalajara//ING INFORMATICA//4TO//INGENERIA DE SOFTWARE//Proyecto_final//Dogeway_Fronted//Dogeway_Front//Img_user";
+                String ruta = "C://Users//Hp Laptop//Desktop//DogeFront//Dogeway_Front//Img_user";
                 String rutaVisual="/Img_user";
                 try {
                     byte[] bytes = foto.getBytes();
@@ -80,7 +80,7 @@ public class UserRController {
 
             URI url = uriComponentsBuilder.path("/signup/{id}").buildAndExpand(usuario.getId()).toUri();
 
-            return ResponseEntity.created(url).body(respuestaUsuario);
+            return ResponseEntity.ok(respuestaUsuario);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -96,6 +96,18 @@ public class UserRController {
         emailAuthentication.enviarCorreo(correo, "Codigo de verificacion", codigoVerificacion);
 
         return ResponseEntity.ok(codigoVerificacion);
+    }
+
+
+
+    @PostMapping("/verifycode")
+    public ResponseEntity<String> verificarCodigo(@RequestParam String codigoIngresado, @RequestParam String codigoEsperado) {
+        // Compara el código ingresado con el código esperado
+        if (codigoIngresado.equals(codigoEsperado)) {
+            return ResponseEntity.ok("correcto");
+        } else {
+            return ResponseEntity.ok("incorrecto");
+        }
     }
 
 }

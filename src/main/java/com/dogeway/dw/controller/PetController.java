@@ -151,7 +151,7 @@ public class PetController {
                 descripcion, personalidad, genero, propietarioOptional.get());
 
         if (foto != null && !foto.isEmpty()) {
-            String ruta = "C://Users//angel//OneDrive - Universidad de Guadalajara//ING INFORMATICA//4TO//INGENERIA DE SOFTWARE//Proyecto_final//Dogeway_Fronted//Dogeway_Front//Img_pet";
+            String ruta = "C://Users//Hp Laptop//Desktop//DogeFront//Dogeway_Front//Img_user";
             String rutaVisual="/Img_pet";
             try {
                 byte[] bytes = foto.getBytes();
